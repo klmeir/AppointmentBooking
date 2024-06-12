@@ -2,7 +2,7 @@ AppointmentBooking API with .NET
 
 ## Build & Run
 
-# Visual Studio
+# Visual Studio 2022
 To run the project open the solution in visual studio, check the database connection string and run the script to create tables, sp and test data
 
 # Docker and Docker Compose
