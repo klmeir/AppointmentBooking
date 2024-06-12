@@ -9,7 +9,7 @@ namespace AppointmentBooking.Api.ApiHandlers
         {            
             RuleFor(x => x.StartDate).NotEmpty();
             RuleFor(x => x.EndDate).NotEmpty();
-            RuleFor(x => x.IdServicio).NotEmpty();
+            RuleFor(x => x.IdService).NotEmpty();
         }
     }
 }

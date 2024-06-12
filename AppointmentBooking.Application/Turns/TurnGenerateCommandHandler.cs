@@ -22,7 +22,7 @@ namespace AppointmentBooking.Application.Turns
             var endDate = new DateOnly(endDateDt.Year, endDateDt.Month, endDateDt.Day);
 
             var turnsSaved = await _service.GenerateTurns(
-                new TurnGenerate(startDate, endDate, request.IdServicio)
+                new TurnGenerate(startDate, endDate, request.IdService)
             );
 
             var turnsDtos = turnsSaved

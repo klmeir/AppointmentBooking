@@ -12,5 +12,9 @@
             EndDate = endDate;
             IdServicio = idServicio;
         }
+
+        public bool IsStartDateValid => this.StartDate < DateOnly.FromDateTime(DateTime.Now);
+
+        public bool IsEndDateValid => this.EndDate < this.StartDate;
     }
 }

@@ -3,5 +3,5 @@ using MediatR;
 
 namespace AppointmentBooking.Application.Turns
 {
-    public record TurnGenerateCommand(string StartDate, string EndDate, int IdServicio) : IRequest<List<TurnDto>>;
+    public record TurnGenerateCommand(string StartDate, string EndDate, int IdService) : IRequest<List<TurnDto>>;
 }
