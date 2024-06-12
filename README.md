@@ -2,6 +2,14 @@ AppointmentBooking API with .NET
 
 ## Build & Run
 
+# Visual Studio
+To run the project open the solution in visual studio, check the database connection string and run the script to create tables, sp and test data
+
+# Docker and Docker Compose
+
+The execution of docker compose from visual studio is functional, at the moment we are working to execute it from command line...
+
+In progress...
 To startup the whole solution, execute the following command:
 
 ```
