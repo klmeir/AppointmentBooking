@@ -1,3 +1,5 @@
+CREATE DATABASE [ReservaTurnos];
+GO
 USE [ReservaTurnos]
 GO
 /****** Object:  Table [dbo].[comercios]    Script Date: 12/06/2024 2:23:19 p. m. ******/
@@ -119,4 +121,21 @@ BEGIN
             ROLLBACK TRANSACTION;        
     END CATCH;
 END;
+GO
+
+SET IDENTITY_INSERT [dbo].[comercios] ON 
+GO
+INSERT [dbo].[comercios] ([id_comercio], [nom_comercio], [aforo_maximo]) VALUES (1, N'Caribe Plaza', 100)
+GO
+INSERT [dbo].[comercios] ([id_comercio], [nom_comercio], [aforo_maximo]) VALUES (2, N'La Castellana', 80)
+GO
+SET IDENTITY_INSERT [dbo].[comercios] OFF
+GO
+SET IDENTITY_INSERT [dbo].[servicios] ON 
+GO
+INSERT [dbo].[servicios] ([id_servicio], [id_comercio], [nom_servicio], [hora_apertura], [hora_cierre], [duracion]) VALUES (1, 1, N'Monica Cruz', CAST(N'09:00:00' AS Time), CAST(N'17:00:00' AS Time), 60)
+GO
+INSERT [dbo].[servicios] ([id_servicio], [id_comercio], [nom_servicio], [hora_apertura], [hora_cierre], [duracion]) VALUES (2, 1, N'Panamericana', CAST(N'08:30:00' AS Time), CAST(N'18:30:00' AS Time), 30)
+GO
+SET IDENTITY_INSERT [dbo].[servicios] OFF
 GO

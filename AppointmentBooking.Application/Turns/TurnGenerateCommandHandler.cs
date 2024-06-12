@@ -2,6 +2,8 @@
 using AppointmentBooking.Domain.Entities;
 using AppointmentBooking.Domain.Services;
 using MediatR;
+using Microsoft.VisualBasic;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace AppointmentBooking.Application.Turns
 {
@@ -14,9 +16,9 @@ namespace AppointmentBooking.Application.Turns
 
 
         public async Task<List<TurnDto>> Handle(TurnGenerateCommand request, CancellationToken cancellationToken)
-        {
-            var startDateDt = DateTime.Parse(request.StartDate);
-            var endDateDt = DateTime.Parse(request.EndDate);
+        {            
+            DateTime.TryParseExact(request.StartDate, "dd/MM/yyyy", null, System.Globalization.DateTimeStyles.None, out var startDateDt);
+            DateTime.TryParseExact(request.EndDate, "dd/MM/yyyy", null, System.Globalization.DateTimeStyles.None, out var endDateDt);
 
             var startDate = new DateOnly(startDateDt.Year, startDateDt.Month, startDateDt.Day);
             var endDate = new DateOnly(endDateDt.Year, endDateDt.Month, endDateDt.Day);
@@ -26,7 +28,7 @@ namespace AppointmentBooking.Application.Turns
             );
 
             var turnsDtos = turnsSaved
-                .Select(t => new TurnDto(t.Id, t.IdService, t.Service?.ServiceName!, t.TurnDate, t.StartTime, t.EndTime, t.Status))
+                .Select(t => new TurnDto(t.Id, t.IdService, t.TurnDate, t.StartTime, t.EndTime, t.Status))
                 .ToList();
 
             return turnsDtos;

@@ -48,7 +48,7 @@ namespace AppointmentBooking.Api
 
                 builder.Services.AddMediatR(Assembly.Load("AppointmentBooking.Application"), typeof(Program).Assembly);
 
-                var dateFormat = config.GetValue<string>("Formats:DateTime") ?? "dd/MM/yyyy";
+                var dateFormat = "dd/MM/yyyy";
                 builder.Services.Configure<JsonOptions>(options => options.SerializerOptions.Converters.Add(new JsonDateTimeConverterWithFormat(dateFormat)));
 
                 var app = builder.Build();
