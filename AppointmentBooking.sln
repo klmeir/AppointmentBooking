@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.34928.147
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppointmentBooking.Api", "AppointmentBooking.Api\AppointmentBooking.Api.csproj", "{E0F20136-E420-445B-88BC-F0D77E4D9F09}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppointmentBooking.Api", "AppointmentBooking.Api\AppointmentBooking.Api.csproj", "{E0F20136-E420-445B-88BC-F0D77E4D9F09}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppointmentBooking.Domain", "AppointmentBooking.Domain\AppointmentBooking.Domain.csproj", "{6070356C-F381-4EF7-A31A-6AD8CD01D19E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppointmentBooking.Domain", "AppointmentBooking.Domain\AppointmentBooking.Domain.csproj", "{6070356C-F381-4EF7-A31A-6AD8CD01D19E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppointmentBooking.Application", "AppointmentBooking.Application\AppointmentBooking.Application.csproj", "{0781544B-EE34-4292-AB7C-089F1733AA0F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppointmentBooking.Application", "AppointmentBooking.Application\AppointmentBooking.Application.csproj", "{0781544B-EE34-4292-AB7C-089F1733AA0F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppointmentBooking.Infrastructure", "AppointmentBooking.Infrastructure\AppointmentBooking.Infrastructure.csproj", "{A2714212-B763-4F77-96D1-9BF9F30EEA61}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppointmentBooking.Infrastructure", "AppointmentBooking.Infrastructure\AppointmentBooking.Infrastructure.csproj", "{A2714212-B763-4F77-96D1-9BF9F30EEA61}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppointmentBooking.Domain.Tests", "AppointmentBooking.Domain.Tests\AppointmentBooking.Domain.Tests.csproj", "{EE235E62-7E83-47A4-8F26-E336FD34C16A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{A2714212-B763-4F77-96D1-9BF9F30EEA61}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A2714212-B763-4F77-96D1-9BF9F30EEA61}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A2714212-B763-4F77-96D1-9BF9F30EEA61}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE235E62-7E83-47A4-8F26-E336FD34C16A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE235E62-7E83-47A4-8F26-E336FD34C16A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE235E62-7E83-47A4-8F26-E336FD34C16A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE235E62-7E83-47A4-8F26-E336FD34C16A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
