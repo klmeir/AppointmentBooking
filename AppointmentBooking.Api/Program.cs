@@ -9,6 +9,7 @@ using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Http.Json;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 using System.Reflection;
 
 namespace AppointmentBooking.Api
@@ -16,46 +17,68 @@ namespace AppointmentBooking.Api
     public class Program
     {
         public static void Main(string[] args)
-        {
-            var builder = WebApplication.CreateBuilder(args);
-            var config = builder.Configuration;
+        {            
+            Log.Logger = new LoggerConfiguration().WriteTo.Console().CreateLogger();
 
-            builder.Services.AddValidatorsFromAssemblyContaining<Program>(ServiceLifetime.Singleton);
-
-            builder.Services.AddDbContext<DataContext>(opts =>
+            try
             {
-                opts.UseSqlServer(config.GetConnectionString("db"));
-            });            
+                var builder = WebApplication.CreateBuilder(args);
+                var config = builder.Configuration;
 
-            // Add services to the container.
-            builder.Services.AddAuthorization();
-            builder.Services.AddDomainServices();
+                builder.Host.UseSerilog((context, loggerConfiguration) =>
+                {
+                    loggerConfiguration.WriteTo.Console();
+                    loggerConfiguration.ReadFrom.Configuration(context.Configuration);
+                });
 
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+                builder.Services.AddValidatorsFromAssemblyContaining<Program>(ServiceLifetime.Singleton);
 
-            builder.Services.AddMediatR(Assembly.Load("AppointmentBooking.Application"), typeof(Program).Assembly);
+                builder.Services.AddDbContext<DataContext>(opts =>
+                {
+                    opts.UseSqlServer(config.GetConnectionString("db"));
+                });            
 
-            var dateFormat = config.GetValue<string>("Formats:DateTime") ?? "dd/MM/yyyy";
-            builder.Services.Configure<JsonOptions>(options => options.SerializerOptions.Converters.Add(new JsonDateTimeConverterWithFormat(dateFormat)));
+                // Add services to the container.
+                builder.Services.AddAuthorization();
+                builder.Services.AddDomainServices();
 
-            var app = builder.Build();
+                // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+                builder.Services.AddEndpointsApiExplorer();
+                builder.Services.AddSwaggerGen();
 
-            // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
+                builder.Services.AddMediatR(Assembly.Load("AppointmentBooking.Application"), typeof(Program).Assembly);
+
+                var dateFormat = config.GetValue<string>("Formats:DateTime") ?? "dd/MM/yyyy";
+                builder.Services.Configure<JsonOptions>(options => options.SerializerOptions.Converters.Add(new JsonDateTimeConverterWithFormat(dateFormat)));
+
+                var app = builder.Build();
+
+                app.UseSerilogRequestLogging();
+
+                // Configure the HTTP request pipeline.
+                if (app.Environment.IsDevelopment())
+                {
+                    app.UseSwagger();
+                    app.UseSwaggerUI();
+                }            
+
+                app.UseAuthorization();
+
+                app.UseMiddleware<AppExceptionHandlerMiddleware>();
+
+                app.MapGroup("/api/turns").MapTurn().AddEndpointFilterFactory(ValidationFilter.ValidationFilterFactory);
+
+                app.Run();
+
+            }
+            catch (Exception ex)
             {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }            
-
-            app.UseAuthorization();
-
-            app.UseMiddleware<AppExceptionHandlerMiddleware>();
-
-            app.MapGroup("/api/turns").MapTurn().AddEndpointFilterFactory(ValidationFilter.ValidationFilterFactory);
-
-            app.Run();
+                Log.Fatal(ex, "server terminated unexpectedly");
+            }
+            finally
+            {
+                Log.CloseAndFlush();
+            }
         }
     }
 }

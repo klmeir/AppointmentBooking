@@ -13,7 +13,8 @@ namespace AppointmentBooking.Api.ApiHandlers
             {
                 return Results.Ok(await mediator.Send(turn));
             })
-            .Produces(StatusCodes.Status200OK, typeof(TurnDto));
+            .Produces(StatusCodes.Status200OK, typeof(TurnDto))
+            .Produces(StatusCodes.Status400BadRequest);
 
             return (RouteGroupBuilder)routeHandler;
         }
